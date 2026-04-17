@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "eshop/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "eshop/wsgi.py"
+    }
+  ],
+  "installCommand": "pip install -r requirements.txt"
+}
