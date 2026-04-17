@@ -1,20 +1,15 @@
 {
-    "builds": [
-        {
-            "src": "eshop/wsgi.py",
-            "use": "@vercel/python",
-            "config": {
-                "maxLambdaSize": "50mb",
-                "runtime": "python3.14.1"
-            }
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "eshop/wsgi.py"
-        }
-    ],
-    "installCommand":"bash build.sh"
+  "version": 2,
+  "builds": [
+    {
+      "src": "eshop/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "eshop/wsgi.py"
+    }
+  ]
 }
- 
