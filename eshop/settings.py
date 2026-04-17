@@ -82,7 +82,6 @@ WSGI_APPLICATION = 'eshop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 db_url = os.getenv('DATABASE_URL')
-print(f"Database URL:{db_url}")
  
 DATABASES = {
     'default': dj_database_url.config(
@@ -126,7 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
  
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 # STATIC_DIRS нь хөгжүүлэлтийн үед ашиглагдах статик файлуудын байршлыг зааж өгдөг.
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # STATIC_ROOT нь цуглуулсан статик файлуудыг хадгалах байршлыг зааж өгдөг.
