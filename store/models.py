@@ -26,7 +26,10 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     description = models.TextField(blank=True,max_length=500, default="", null=True)
-    image = models.ImageField(upload_to='products/', blank=True, null=True)
+    image = models.ImageField(upload_to='media/products/', blank=True, null=True)
+
+    is_sale = models.BooleanField(default=False)
+    sale_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def __str__(self):
         return self.name
