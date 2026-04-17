@@ -8,3 +8,7 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html', {})
+
+def products_detail(request, pk):
+    product = Product.objects.get(id=pk)
+    return render(request, 'product_detail.html', {'product': product})
