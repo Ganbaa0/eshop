@@ -6,54 +6,80 @@
 
 <div class="container mt-4">
 
-    {% for product in cart_products %}
+    {% if cart_products %}
 
-    <div class="card mx-auto mb-3" style="width: 20rem;">
+        {% for product in cart_products %}
 
-        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+        <div class="card shadow-lg mb-4 w-100">
 
-        <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <p class="card-text">{{ product.description }}</p>
+            <div class="row g-0">
 
-            {% if product.is_sale %}
-
-                <div class="d-flex justify-content-center mb-2">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
+                <!-- Зураг -->
+                <div class="col-md-4">
+                    <img src="{{ product.image.url }}"
+                         class="img-fluid rounded-start"
+                         style="height: 250px; width: 100%; object-fit: cover;">
                 </div>
 
-                <p class="card-text">
-                    <strike>{{ product.price|floatformat:0|intcomma }}₮</strike>
-                    <br>
-                    <span class="text-danger fw-bold">
-                        {{ product.sale_price|floatformat:0|intcomma }}₮
-                    </span>
-                </p>
+                <!-- Дэлгэрэнгүй -->
+                <div class="col-md-8">
+                    <div class="card-body p-4">
 
-            {% else %}
+                        <h3 class="fw-bold">
+                            {{ product.name }}
+                        </h3>
 
-                <p class="card-text">
-                    {{ product.price|floatformat:0|intcomma }}₮
-                </p>
+                        <p class="text-muted fs-5">
+                            {{ product.description }}
+                        </p>
 
-            {% endif %}
+                        {% if product.is_sale %}
+
+                            <div class="mb-2">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <i class="bi bi-star-fill text-warning"></i>
+                            </div>
+
+                            <p class="fs-4">
+                                <strike class="text-muted">
+                                    {{ product.price|floatformat:0|intcomma }}₮
+                                </strike>
+                                <br>
+                                <span class="text-danger fw-bold fs-3">
+                                    {{ product.sale_price|floatformat:0|intcomma }}₮
+                                </span>
+                            </p>
+
+                        {% else %}
+
+                            <p class="fs-3 fw-bold">
+                                {{ product.price|floatformat:0|intcomma }}₮
+                            </p>
+
+                        {% endif %}
+
+                        <a href="{% url 'home' %}" class="btn btn-secondary mt-2">
+                            Буцах
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="card-body">
-            <a href="{% url 'home' %}" class="btn btn-secondary">
-                Буцах
-            </a>
+        {% endfor %}
+
+    {% else %}
+
+        <div class="text-center mt-5">
+            <h4>🛒 Сагс хоосон байна</h4>
         </div>
 
-    </div>
-
-    {% endfor %}
-    {% if not cart_products %}
-        <p class="text-center">Сагс хоосон байна.</p>
     {% endif %}
 
 </div>
