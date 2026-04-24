@@ -17,7 +17,15 @@
                         <li><a class="dropdown-item" href="{% url 'category' 'Нөүтбүүк' %}">Нөүтбүүк</a></li>
                     </ul>
                 </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Гарах</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Нэвтрэх</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Бүртгүүлэх</a></li>
+                {% endif %}
+                
             </ul>
+            
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<header class="bg-dark-py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Нэвтрэх</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Манай дэлгүүрт тавтай морилно уу</p>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">   
+            <br>
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                  <label for="username" class="form-label">Нэвтрэх нэр</label>
+                  <input type="text" class="form-control" name="username" aria-describedby="usernameHelp">
+                  <!-- <div id="usernameHelp" class="form-text">Таны нэвтрэх нэр</div> -->
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Нууц үг</label>
+                  <input type="password" class="form-control" name="password">
+                </div>
+                </div>
+                <button type="submit" class="btn btn-secondary">Нэвтрэх</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
