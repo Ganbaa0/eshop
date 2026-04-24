@@ -1,5 +1,8 @@
-from django.shortcuts import render
-from .models import Product
+from django.contrib import messages
+
+from django.shortcuts import redirect, render
+import urllib
+from .models import Category, Product
 
 # Create your views here.
 def home(request):
@@ -12,3 +15,13 @@ def about(request):
 def products_detail(request, pk):
     product = Product.objects.get(id=pk)
     return render(request, 'product_detail.html', {'product': product})
+
+def category(request, catname):
+    catname = urllib.parse.unquote(catname).replace('-', ' ')
+    try:
+        category = Category.objects.get(name=catname)
+        products = Product.objects.filter(category=category)
+        return render(request, 'category.html', {'products': products, 'category': category})
+    except:
+        messages.success(request, 'Тохирох ангилал олдсонгүй')
+        return redirect('home')
