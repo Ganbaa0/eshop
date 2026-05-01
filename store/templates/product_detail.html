@@ -51,6 +51,20 @@
                         </h3>
 
                     {% endif %}
+                    
+                    <div class="row">
+                        <div class="col-md-2">Тоо ширхэг:</div>
+                        <div class="col-md-3">
+                            <select class="form-select form-select-sm" id="qty-cart">
+                              <option selected>Тоо ширхэгээ сонгоно уу</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
 
                     <!-- BUTTONS -->
                     <div class="mt-4 d-flex gap-2">
@@ -91,6 +105,7 @@
             data: {
                 // 'product_id' - бүтээгдэхүүний ID, 'csrfmiddlewaretoken'
                 'product_id': $('#add-cart').val(),
+                product_qty: $('#qty-cart option:selected').text(),
                 'csrfmiddlewaretoken': '{{ csrf_token }}',
                 'action': 'post',
             },
