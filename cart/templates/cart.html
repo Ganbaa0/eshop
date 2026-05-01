@@ -16,19 +16,17 @@
 
             {% for product in cart_products %}
 
-            <div class="col-12 mb-4">
+            <div class="col-12 mb-4">   
 
                 <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
                     <div class="row g-0 align-items-center">
 
                      <!-- IMAGE -->
-                    <div class="col-md-4">
-                        <div class="rounded-4 overflow-hidden shadow-sm bg-light d-flex justify-content-center align-items-center"
-                             style="height: 260px;">
-                            <img src="{{ product.image.url }}"
-                                 class="img-fluid w-100 h-100 object-fit-cover">
-                        </div>
+                    <div class="col-md-5">
+                        <img src="{{ product.image.url }}"
+                             class="img-fluid"
+                             style="height: 400px; width: 100%; object-fit: cover;">
                     </div>
 
                         <!-- DETAILS -->
