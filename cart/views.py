@@ -36,6 +36,6 @@ def cart_delete(request):
     cart = Cart(request)
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('product_id'))
-        cart.delete(product_id=product_id)
+        cart.delete(product=product_id)
         response = JsonResponse({'product': product_id})
         return response
