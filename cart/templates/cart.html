@@ -16,91 +16,83 @@
 
             {% for product in cart_products %}
 
-            <div class="col-12 mb-4">   
-
+            <div class="col-12 mb-4">
                 <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-
                     <div class="row g-0 align-items-center">
 
-                     <!-- IMAGE -->
-                    <div class="col-md-5">
-                        <img src="{{ product.image.url }}"
-                             class="img-fluid"
-                             style="height: 400px; width: 100%; object-fit: cover;">
-                    </div>
+                        <!-- IMAGE -->
+                        <div class="col-md-4">
+                            <img src="{{ product.image.url }}"
+                                 class="img-fluid"
+                                 style="height: 400px; width: 100%; object-fit: cover;">
+                        </div>
 
                         <!-- DETAILS -->
                         <div class="col-md-8">
                             <div class="card-body p-4">
 
-                                <h3 class="fw-bold mb-2">
-                                    {{ product.name }}
-                                </h3>
-
-                                <p class="text-muted mb-3">
-                                    {{ product.description }}
-                                </p>
+                                <h3 class="fw-bold mb-2">{{ product.name }}</h3>
+                                <p class="text-muted mb-3">{{ product.description }}</p>
 
                                 {% if product.is_sale %}
-
                                     <div class="mb-2">
                                         <span class="badge bg-danger">Хямдралтай</span>
                                     </div>
-
                                     <p class="mb-1">
                                         <span class="text-muted text-decoration-line-through fs-5">
                                             {{ product.price|floatformat:0|intcomma }}₮
                                         </span>
                                     </p>
-
                                     <h4 class="fw-bold text-danger">
                                         {{ product.sale_price|floatformat:0|intcomma }}₮
                                     </h4>
-
                                 {% else %}
-
                                     <h4 class="fw-bold text-dark">
                                         {{ product.price|floatformat:0|intcomma }}₮
                                     </h4>
-
                                 {% endif %}
 
-                                <div class="row">
-                                    <div class="col-md-2">Тоо ширхэг:</div>
-                                    <div class="col-md-3">
-                                        <select class="form-select form-select-sm" id="select{{product.id}}">
-                                            <!-- {'4':2, '1':5} гэх мэт нэмнэ -->
-                                             {% for key, value in quantities.items %}
-                                                {% if key == product.id|slugify %}
-                                                    <option selected>{{ value }}</option>
-                                                {% endif %}
+                                <div class="row align-items-center mt-3">
+                                    <div class="col-auto">Тоо ширхэг:</div>
+                                    <div class="col-auto">
+                                        <select class="form-select form-select-sm" id="select{{ product.id }}">
+                                            {% for i in "12345" %}
+                                                {% with forloop.counter as num %}
+                                                    {% for key, value in quantities.items %}
+                                                        {% if key == product.id|stringformat:"s" and value == num %}
+                                                            <option value="{{ num }}" selected>{{ num }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endwith %}
                                             {% endfor %}
-
-                                          <option value="1">1</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          <option value="4">4</option>
-                                          <option value="5">5</option>
+                                            {% for i in "12345" %}
+                                                <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
 
-                                <div class="mt-3">
-                                    <a href="{% url 'home' %}"
-                                       class="btn btn-outline-secondary update-cart">
+                                <div class="mt-3 d-flex gap-2">
+                                    <a href="{% url 'home' %}" class="btn btn-outline-secondary">
                                         ← Буцах
                                     </a>
-                                    <button type="button" data-index="{{product.id}}" class="btn btn-secondary update-cart">Шинэчлэх</button>
-                                    <button type="button" data-index="{{product.id}}" class="btn btn-danger delete-product">Устгах</button>
+                                    <button type="button"
+                                            data-index="{{ product.id }}"
+                                            class="btn btn-secondary update-cart">
+                                        Шинэчлэх
+                                    </button>
+                                    <button type="button"
+                                            data-index="{{ product.id }}"
+                                            class="btn btn-danger delete-product">
+                                        Устгах
+                                    </button>
                                 </div>
 
                             </div>
                         </div>
 
                     </div>
-
                 </div>
-
             </div>
 
             {% endfor %}
@@ -113,7 +105,6 @@
             <div style="font-size: 60px;">🛒</div>
             <h3 class="fw-bold mt-3">Сагс хоосон байна</h3>
             <p class="text-muted">Та бүтээгдэхүүн нэмээгүй байна</p>
-
             <a href="{% url 'home' %}" class="btn btn-primary mt-3 px-4 rounded-pill">
                 Худалдан авалт эхлэх
             </a>
@@ -123,46 +114,36 @@
 
 </div>
 
-
 <script>
     $(document).on('click', '.update-cart', function(e) {
-            // preventDefault() - гүйцэтгэлийг зогсоох
         e.preventDefault();
-
-        var productid = $(this).data('index');
-        // AJAX хүсэлт илгээх
+        var productid = $(this).data('index');  // засварласан: this → $(this)
         $.ajax({
-            // get, post, put, delete - хүсэлтийн төрлийг зааж өгнө
             type: 'POST',
-            // url - хүсэлт илгээх URL хаяг
             url: "{% url 'cart_update' %}",
-            // data - сервер рүү илгээх өгөгдөл
             data: {
-                // 'product_id' - бүтээгдэхүүний ID, 'csrfmiddlewaretoken'
-                'product_id': this.data('index'),
+                'product_id': productid,  // засварласан: this.data() → productid хувьсагч
                 'product_qty': $('#select' + productid + ' option:selected').text(),
                 'csrfmiddlewaretoken': '{{ csrf_token }}',
                 'action': 'post',
             },
-            // Хүсэлт амжилттай болбол гүйцэтгэх функц
             success: function(json) {
                 location.reload();
             },
-            // Хүсэлт амжилтгүй болбол гүйцэтгэх функц
             error: function(xhr, errmsg, err) {
                 console.log(xhr.status + ": " + xhr.responseText);
             }
         });
-    })
+    });
 
     $(document).on('click', '.delete-product', function(e) {
         e.preventDefault();
-        // AJAX хүсэлт илгээх
+        var productid = $(this).data('index');  // засварласан: this → $(this)
         $.ajax({
             type: 'POST',
             url: "{% url 'cart_delete' %}",
             data: {
-                'product_id': this.data('index'),
+                'product_id': productid,  // засварласан: this.data() → productid хувьсагч
                 'csrfmiddlewaretoken': '{{ csrf_token }}',
                 'action': 'post',
             },
@@ -173,8 +154,7 @@
                 console.log(xhr.status + ": " + xhr.responseText);
             }
         });
-    })
+    });
 </script>
-
 
 {% endblock %}
