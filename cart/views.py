@@ -8,10 +8,16 @@ def cart(request):
     cart = Cart(request)
     cart_products = cart.get_prods()
     quantities = cart.get_quants()
-    return render(request, 'cart.html', {
-        'cart_products': cart_products,
-        'quantities': quantities,
-    })
+
+    # product + quantity нэгтгэсэн list
+    cart_items = []
+    for product in cart_products:
+        cart_items.append({
+            'product': product,
+            'quantity': quantities.get(str(product.id), 1)
+        })
+
+    return render(request, 'cart.html', {'cart_items': cart_items})
 
 
 def cart_add(request):
@@ -34,7 +40,6 @@ def cart_update(request):
     cart = Cart(request)
     product_id = int(request.POST.get('product_id'))
     product_qty = int(request.POST.get('product_qty'))
-    # засварласан: product_id= → product=
     cart.update(product=product_id, quantity=product_qty)
     return JsonResponse({'qty': product_qty})
 

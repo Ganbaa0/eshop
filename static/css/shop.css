@@ -1,0 +1,269 @@
+/* =========================
+   DESIGN SYSTEM
+========================= */
+:root {
+    --primary: #111;
+    --bg: #f6f7fb;
+    --text: #111;
+
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 25px;
+
+    --shadow-sm: 0 8px 30px rgba(0,0,0,0.06);
+    --shadow-md: 0 15px 40px rgba(0,0,0,0.12);
+    --shadow-lg: 0 25px 50px rgba(0,0,0,0.15);
+
+    --transition: 0.3s ease;
+}
+
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    font-family: "Inter", sans-serif;
+    color: var(--text);
+}
+
+/* =========================
+   NAVBAR (GLASS STYLE)
+========================= */
+.navbar,
+.navbar-glass {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--primary) !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: var(--primary) !important;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    padding: 120px 20px;
+    text-align: center;
+    border-radius: 0 0 50px 50px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 900;
+}
+
+.hero p {
+    color: #cbd5e1;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+h2 {
+    font-weight: 800;
+}
+
+/* =========================
+   CARD SYSTEM (FIXED DUPLICATE)
+========================= */
+.card {
+    border: none;
+    border-radius: var(--radius-lg);
+    background: #fff;
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-md);
+}
+
+.card-img-top {
+    height: 260px;
+    width: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.08);
+}
+
+.card-body {
+    padding: 18px;
+    text-align: center;
+}
+
+/* =========================
+   PRODUCT TEXT
+========================= */
+.fw-bolder,
+.card-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* =========================
+   PRICE
+========================= */
+.price {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+del {
+    color: #9ca3af;
+}
+
+/* =========================
+   BADGE (FIXED DUPLICATE)
+========================= */
+.badge {
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 12px;
+}
+
+/* =========================
+   BUTTONS (FIXED DUPLICATE)
+========================= */
+.btn {
+    border-radius: 50px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary,
+.btn-dark {
+    background: var(--primary);
+    border: none;
+}
+
+.btn-primary:hover,
+.btn-dark:hover {
+    background: #000;
+    transform: scale(1.05);
+}
+
+.btn-outline-dark {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline-dark:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* =========================
+   STAR ICONS
+========================= */
+.bi-star-fill {
+    color: #fbbf24;
+    font-size: 14px;
+}
+
+/* =========================
+   PRODUCT IMAGE DETAIL
+========================= */
+.product-img,
+.product-image,
+.product-main-image {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+
+/* =========================
+   CART CARD
+========================= */
+.cart-card {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+/* =========================
+   FORM FIX
+========================= */
+.form-control,
+.form-select {
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: none;
+}
+
+/* Select-ийн баруун талын сум устгах */
+select.no-arrow,
+select.no-arrow.form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none !important;
+}
+
+/* =========================
+   AUTH FORM
+========================= */
+.auth-form p {
+    margin-bottom: 15px;
+}
+
+.auth-form input {
+    width: 100%;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    margin-top: 80px;
+    padding: 30px 0;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .card-img-top {
+        height: 200px;
+    }
+}

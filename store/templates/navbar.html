@@ -1,38 +1,77 @@
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-glass sticky-top">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="{% url 'home' %}">Цахим дэлгүүр</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+        <!-- BRAND -->
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+            🛒 Цахим дэлгүүр
+        </a>
+
+        <!-- TOGGLE -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- MENU -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'home' %}">Эхлэл</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Бидний тухай</a></li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Эхлэл</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">Бидний тухай</a>
+                </li>
+
+                <!-- DROPDOWN -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ангилал</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        Ангилал
+                    </a>
+
+                    <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'home' %}">Бүх бүтээгдэхүүн</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'Гар-утас' %}">Гар утас</a></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'Суурин-Компьютер' %}">Суурин Компьютер</a></li>
-                        <li><a class="dropdown-item" href="{% url 'category' 'Нөүтбүүк' %}">Нөүтбүүк</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Гар-утас' %}">📱 Гар утас</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Суурин-Компьютер' %}">💻 Компьютер</a></li>
+                        <li><a class="dropdown-item" href="{% url 'category' 'Нөүтбүүк' %}">🖥 Нөүтбүүк</a></li>
                     </ul>
                 </li>
+
                 {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Гарах</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{% url 'logout' %}">
+                            Гарах
+                        </a>
+                    </li>
                 {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Нэвтрэх</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Бүртгүүлэх</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            Нэвтрэх
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">
+                            Бүртгүүлэх
+                        </a>
+                    </li>
                 {% endif %}
-                
+
             </ul>
-            
-            <form class="d-flex">
-                <a href="{% url 'cart' %}" class="btn btn-outline-dark">
-                    <i class="bi-cart-fill me-1"></i>
-                    Сагс
-                    <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}</span>
+
+            <!-- CART -->
+            <div class="d-flex">
+                <a href="{% url 'cart' %}" class="btn btn-cart">
+                    🛒 Сагс
+                    <span class="badge bg-danger ms-1" id="cart_quantity">
+                        {{ cart|length }}
+                    </span>
                 </a>
-            </form>
+            </div>
+
         </div>
     </div>
 </nav>

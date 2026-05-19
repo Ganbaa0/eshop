@@ -2,25 +2,54 @@
 
 {% block content %}
 
-<header class="bg-dark-py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Бүртгэх хуудас</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Манай дэлгүүрт бүртгүүлнэ үү</p>
-        </div>
+<!-- HERO -->
+<header class="hero">
+    <div class="container text-center">
+        <h1>Бүртгүүлэх</h1>
+        <p>Манай платформд нэгдээрэй</p>
     </div>
 </header>
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">   
-            <br>
-            <form action="{% url 'register' %}" method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <br><br>
-                <button type="submit" class="btn btn-primary">Бүртгүүлэх</button>
-            </form>
+
+<!-- FORM -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-md-7 col-lg-6">
+
+                <div class="card shadow-lg border-0 rounded-4 p-4">
+
+                    <h3 class="text-center fw-bold mb-4">
+                        Шинэ аккаунт үүсгэх
+                    </h3>
+
+                    <form action="{% url 'register' %}" method="POST">
+                        {% csrf_token %}
+
+                        <div class="auth-form">
+                            {{ form.as_p }}
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-dark w-100 rounded-pill py-2 mt-3">
+                            Бүртгүүлэх
+                        </button>
+
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            Бүртгэлтэй юу?
+                            <a href="{% url 'login' %}">Нэвтрэх</a>
+                        </small>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
     </div>
-</div>
+</section>
+
 {% endblock %}

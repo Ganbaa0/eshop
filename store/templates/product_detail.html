@@ -5,120 +5,145 @@
 
 <div class="container py-5">
 
-    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
 
-        <div class="row g-0 align-items-center">
+            <div class="card product-detail-card border-0 shadow-lg rounded-4 overflow-hidden">
 
-            <!-- IMAGE -->
-            <div class="col-md-4">
-                <img src="{{ product.image.url }}"
-                     class="img-fluid"
-                     style="height: 400px; width: 100%; object-fit: cover;">
-            </div>
+                <div class="row g-0">
 
-            <!-- DETAILS -->
-            <div class="col-md-8">
-                <div class="card-body p-4">
-
-                    <h2 class="fw-bold mb-2">
-                        {{ product.name }}
-                    </h2>
-
-                    <p class="text-muted mb-3">
-                        {{ product.description }}
-                    </p>
-
-                    {% if product.is_sale %}
-
-                        <div class="mb-2">
-                            <span class="badge bg-danger">Хямдралтай</span>
-                        </div>
-
-                        <p class="mb-1">
-                            <span class="text-muted text-decoration-line-through fs-5">
-                                {{ product.price|floatformat:0|intcomma }}₮
-                            </span>
-                        </p>
-
-                        <h3 class="fw-bold text-danger">
-                            {{ product.sale_price|floatformat:0|intcomma }}₮
-                        </h3>
-
-                    {% else %}
-
-                        <h3 class="fw-bold">
-                            {{ product.price|floatformat:0|intcomma }}₮
-                        </h3>
-
-                    {% endif %}
-                    
-                    <div class="row">
-                        <div class="col-md-2">Тоо ширхэг:</div>
-                        <div class="col-md-3">
-                            <select class="form-select form-select-sm" id="qty-cart">
-                              <option selected>Тоо ширхэгээ сонгоно уу</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                            </select>
+                    <!-- IMAGE -->
+                    <div class="col-md-5">
+                        <div class="product-image-wrapper h-100">
+                            <img src="{{ product.image.url }}"
+                                 class="img-fluid product-main-image"
+                                 style="min-height: 100%; object-fit: cover;">
                         </div>
                     </div>
 
-                    <!-- BUTTONS -->
-                    <div class="mt-4 d-flex gap-2">
+                    <!-- DETAILS -->
+                    <div class="col-md-7">
+                        <div class="p-4 p-md-5">
 
-                        <a href="{% url 'home' %}"
-                           class="btn btn-outline-secondary rounded-pill px-4">
-                            ← Буцах
-                        </a>
+                            <!-- TITLE -->
+                            <h2 class="fw-bold mb-3">
+                                {{ product.name }}
+                            </h2>
 
-                        <button class="btn btn-primary rounded-pill px-4"
-                                value="{{ product.id }}"
-                                id="add-cart">
-                            🛒 Сагсанд нэмэх
-                        </button>
+                            <p class="text-muted mb-4">
+                                {{ product.description }}
+                            </p>
 
+                            <!-- PRICE BLOCK -->
+                            {% if product.is_sale %}
+
+                                <span class="badge bg-danger px-3 py-2 mb-3">
+                                    Хямдралтай
+                                </span>
+
+                                <div class="mb-1">
+                                    <del class="text-muted fs-6">
+                                        {{ product.price|floatformat:0|intcomma }}₮
+                                    </del>
+                                </div>
+
+                                <h2 class="fw-bold text-danger mb-4">
+                                    {{ product.sale_price|floatformat:0|intcomma }}₮
+                                </h2>
+
+                            {% else %}
+
+                                <h2 class="fw-bold mb-4">
+                                    {{ product.price|floatformat:0|intcomma }}₮
+                                </h2>
+
+                            {% endif %}
+
+                            <!-- QUANTITY -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">
+                                    Тоо ширхэг
+                                </label>
+
+                                <select class="form-select rounded-3 shadow-sm no-arrow"
+                                        id="qty-cart">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+
+                            <!-- BUTTONS -->
+                            <div class="d-flex gap-2 flex-wrap mb-4">
+
+                                <a href="{% url 'home' %}"
+                                   class="btn btn-outline-secondary rounded-pill px-4">
+                                    ← Буцах
+                                </a>
+
+                                <button class="btn btn-dark rounded-pill px-4 shadow-sm"
+                                        value="{{ product.id }}"
+                                        id="add-cart">
+                                    🛒 Сагсанд нэмэх
+                                </button>
+
+                            </div>
+
+                            <!-- TRUST BADGES -->
+                            <div class="text-muted small border-top pt-3">
+                                ✔ Хурдан хүргэлт<br>
+                                ✔ Найдвартай төлбөр<br>
+                                ✔ Буцаалтын боломж
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
+
             </div>
 
         </div>
-
     </div>
 
 </div>
 
+<!-- AJAX -->
 <script>
-    $(document).on('click', '#add-cart', function(e) {
-            // preventDefault() - гүйцэтгэлийг зогсоох
-        e.preventDefault();
-        // AJAX хүсэлт илгээх
-        $.ajax({
-            // get, post, put, delete - хүсэлтийн төрлийг зааж өгнө
-            type: 'POST',
-            // url - хүсэлт илгээх URL хаяг
-            url: "{% url 'cart_add' %}",
-            // data - сервер рүү илгээх өгөгдөл
-            data: {
-                // 'product_id' - бүтээгдэхүүний ID, 'csrfmiddlewaretoken'
-                'product_id': $('#add-cart').val(),
-                product_qty: $('#qty-cart option:selected').text(),
-                'csrfmiddlewaretoken': '{{ csrf_token }}',
-                'action': 'post',
-            },
-            // Хүсэлт амжилттай болбол гүйцэтгэх функц
-            success: function(json) {
-                document.getElementById('cart_quantity').textContent = json.cart_qty;
-            },
-            // Хүсэлт амжилтгүй болбол гүйцэтгэх функц
-            error: function(xhr, errmsg, err) {
-                console.log(xhr.status + ": " + xhr.responseText);
+$(document).on('click', '#add-cart', function(e) {
+    e.preventDefault();
+
+    $.ajax({
+        type: 'POST',
+        url: "{% url 'cart_add' %}",
+        data: {
+            product_id: $(this).val(),
+            product_qty: $('#qty-cart').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post',
+        },
+
+        success: function(json) {
+            console.log('Cart response:', json); // debug
+            var el = document.getElementById('cart_quantity');
+            if (el) {
+                var qty = json.cart_qty !== undefined ? json.cart_qty : json.qty;
+                if (qty !== undefined && qty > 0) {
+                    el.textContent = qty;
+                    el.style.display = '';
+                } else {
+                    el.style.display = 'none';
+                }
             }
-        });
-    })
+        },
+
+        error: function(xhr) {
+            console.log(xhr.responseText);
+        }
+    });
+});
 </script>
 
 {% endblock %}
